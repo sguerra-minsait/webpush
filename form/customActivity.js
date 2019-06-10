@@ -2,7 +2,7 @@
 	'use strict';
 	var connection = new Postmonger.Session();
 	var payload = {};
-	var heroku_url = "https://minsait-webpush-ca.herokuapp.com/";
+	var heroku_url = "https://minsait-webpush-ca.herokuapp.com";
 	var eventDefinitionKey;
 
 	$(window).ready(onRender);
