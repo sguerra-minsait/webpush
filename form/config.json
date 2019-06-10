@@ -21,7 +21,7 @@
 						}],
 						"outArguments": [
 						],
-						"url": "https://webpushnodejstest.herokuapp.com/execute",
+						"url": "https://minsait-webpush-ca.herokuapp.com/execute",
 						"useJwt": true,
 						"body": "",
 						"method": "POST"
@@ -30,19 +30,19 @@
 		"configurationArguments": {
 			"applicationExtensionKey": "486ad3cc-bc11-44d3-89f0-08eb27820948",
 			 "save": {
-					 "url": "https://webpushnodejstest.herokuapp.com/save",
+					 "url": "https://minsait-webpush-ca.herokuapp.com/save",
 					 "verb": "POST",
 					 "body": "",
 					 "useJwt": true
 			 },
 			 "publish": {
-					 "url": "https://webpushnodejstest.herokuapp.com/publish",
+					 "url": "https://minsait-webpush-ca.herokuapp.com/publish",
 					 "verb": "POST",
 					 "body": "",
 					 "useJwt": true
 			 },
 			 "validate": {
-					 "url": "https://webpushnodejstest.herokuapp.com/validate",
+					 "url": "https://minsait-webpush-ca.herokuapp.com/validate",
 					 "verb": "POST",
 					 "body": "",
 					 "useJwt": true
