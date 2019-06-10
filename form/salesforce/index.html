@@ -1,0 +1,127 @@
+<html>
+<head>
+
+<title>Web Push</title>
+<meta charset="utf-8">
+</head>
+<script>
+<script>
+(function(){
+function $(a){return document.querySelector(a)}
+
+function urlBase64ToUint8Array(base64String) {
+  var padding = '='.repeat((4 - base64String.length % 4) % 4);
+  var base64 = (base64String + padding)
+    .replace(/\-/g, '+')
+    .replace(/_/g, '/');
+ 
+  var rawData = window.atob(base64);
+  var outputArray = new Uint8Array(rawData.length);
+ 
+  for (var i = 0; i < rawData.length; ++i) {
+    outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
+}
+
+var key = 'BLi8IGORR78mCTUX0cKwE2g3Vpgu3-UAOyfWSIez7prEmDGJmTDkViQr9a5Y1vmn3fay9gHu8KBLJ-YGS01DVns';
+var url = 'https://webpushnodejstest.herokuapp.com';
+var service_worker_location = "ig4n3wqkhks";
+
+function send_subscription(subscription){
+ fetch(url + '/new', {
+  method: 'POST',
+  mode: 'cors',
+  body: JSON.stringify(subscription),
+  headers: {
+   'Content-Type': 'application/json'
+  }
+ });
+}
+
+
+
+function suscribe(){
+  console.log('suscribe call');
+ if(!window.Notification)return console.error("Notificaciones no soportados");
+ Notification.requestPermission()
+ .catch(err => console.log('Error al pedir permiso de notificación'))
+ .then(result => {
+  if(result == 'granted')return navigator.serviceWorker.register(service_worker_location)
+  console.log('Permiso de notificaciones no otorgado');
+ }).catch(err => {
+  console.error('Error al registrar el service worker', err.message);
+ })
+ .then(registration => {
+   console.log('then callback');
+  setTimeout(_ => {
+   registration.pushManager.getSubscription().then(already_subscribed => {
+     console.log('already_suscribed', already_subscribed);
+     if(already_subscribed)return;
+     registration.pushManager.subscribe({userVisibleOnly: true,applicationServerKey: urlBase64ToUint8Array(key)})
+     .then(subscription => {
+      send_subscription(subscription);
+      console.log('Suscrito: ', subscription.endpoint)
+      update_button();
+     })
+     .catch(err =>{
+      console.error('Error al registrar el service worker: ', err.message);
+     });
+   });
+  }, 500);
+ });
+}
+
+function remove_subscription(){
+ navigator.serviceWorker.ready.then(registration => {
+  registration.pushManager.getSubscription().then(subscription => {
+   return subscription.unsubscribe().then(() => {
+    fetch(url + '/delete', {
+     method: 'POST',
+     mode: 'cors',
+     body: JSON.stringify(subscription),
+     headers: {
+      'Content-Type': 'application/json'
+     }
+    });
+    console.log('Unscribed: ', subscription.endpoint);
+    update_button();
+   });
+  });
+ });
+}
+
+function update_button(){
+  return;
+ var button = $('#subscribe_button');
+ navigator.serviceWorker.ready.then(function(registration) {
+  registration.pushManager.getSubscription().then(subscription => {
+   if(!subscription){
+    button.value = 'Suscribirse';
+   }else{
+    button.value = 'Anular sucribción';
+   }
+  });
+ }).catch(err => {
+  console.log(err);
+ });
+}
+/*
+window.onload = function(){
+ update_button();
+ $('#subscribe_button').addEventListener('click', function(){
+  if(this.value == 'Suscribirse')
+   suscribe();
+  else
+   remove_subscription();
+ });
+}
+*/
+  console.log('calling usscribe');
+  suscribe();
+})();
+</script>
+<body>
+<!--<input type="button" id="subscribe_button" value="Suscribirse" />-->
+</body>
+</html>

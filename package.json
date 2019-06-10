@@ -1,0 +1,28 @@
+{
+  "name": "webpush_salesforce_node_server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DimitarNikolaevVasilev/Salesforce_WebPush_Server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DimitarNikolaevVasilev/Salesforce_WebPush_Server/issues"
+  },
+  "homepage": "https://github.com/DimitarNikolaevVasilev/Salesforce_WebPush_Server#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.1",
+    "sqlite3": "^4.0.6",
+    "web-push": "^3.3.3",
+    "wsdlrdr": "^0.5.5"
+  }
+}
