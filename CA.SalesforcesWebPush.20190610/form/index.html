@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>WebPush Custom Activity</title>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/postmonger.js"></script>
+<script type="text/javascript" src="customActivity.js"></script>
+<link rel="stylesheet" type="text/css" href="css/salesforce-lightning-design-system.min.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+<div id="step1" class="step">
+	<div class="slds-form-element">
+		<label class="slds-form-element__label" for="title">Titulo(<font style="color:red">*</font>)</label>
+		<div class="slds-form-element__control">
+			<input type="text" id="title" name="title" placeholder="Titulo de su mensaje" class="slds-input" maxlength="30" />
+		</div>
+		<div class="slds-text-color_error"></div>
+	</div>
+
+	<div class="slds-form-element">
+		<label class="slds-form-element__label" for="message">Mensaje(<font style="color:red">*</font>)</label>
+		<button id="message_help_button" class="slds-button slds-button_icon slds-icon-help">
+		  <svg class="slds-button__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 -12 78.5 110" aria-labelledby="title" role="presentation" style="width:1.2rem; height: 1.2rem;">
+			<defs>
+			  <mask id="questionMark" x="0" y="0" width="78.5" height="110">
+				<path d="M46.8,70.4H37a2.7,2.7,0,0,1-2.7-2.7V64.8A19.6,19.6,0,0,1,47.4,46.4a14.6,14.6,0,0,0,6.2-4.1c9.8-11.7.8-25.8-10.9-26.2a15.7,15.7,0,0,0-11.5,4.4,13.7,13.7,0,0,0-4.5,8.6,2.8,2.8,0,0,1-2.9,2.1H14a2.8,2.8,0,0,1-2.9-3.1A31.8,31.8,0,0,1,20.5,8.8,32,32,0,0,1,43.3,0a31.3,31.3,0,0,1,9.6,60.7A4.4,4.4,0,0,0,50,64.6v2.9a3,3,0,0,1-3.1,2.9Zm3.1,20.5a3,3,0,0,1-2.9,3H37.2A3,3,0,0,1,34.3,91V81.2a3,3,0,0,1,2.9-2.9H47a3,3,0,0,1,2.9,2.9Z"
+				  transform="translate(-2.5 0)" fill="#aab4be"></path>
+			  </mask>
+			</defs>
+			<title id="title">help</title>
+			<g>
+			  <circle cy="45" cx="45" r="60"></circle>
+			  <circle class="slds-icon-help_hover" cy="45" cx="45" r="60"></circle>
+			  <circle class="slds-icon-help_focus" cy="45" cx="45" r="60"></circle>
+			</g>
+		  </svg>
+		  <span class="slds-assistive-text">help</span>
+		</button>
+		<div class="slds-form-element__control">
+			<div class="effect_3d">
+				<div id="message_preview">
+					<!--<div class="message_preview_close">X</div>-->
+				</div>
+				<textarea id="message" name="message" class="slds-textarea" placeholder="¿Cúal es su mensaje?" rows="5"></textarea>
+			</div>
+
+			<div class="flex_container">
+				<div id="message_rest_space"></div>
+				<div class="message_preview_button_container"><span id="message_preview_button">Vista previa</span></div>
+			</div>
+		</div>
+		<div class="slds-text-color_error"></div>
+	</div>
+
+
+	<div class="slds-tabs_scoped">
+		<ul class="slds-tabs_scoped__nav" role="tablist">
+			<li class="slds-tabs_scoped__item slds-tabs_scoped__overflow-button" title="More Tabs" role="presentation">
+				<div class="slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open">
+					<button class="slds-button" aria-haspopup="true" id="onclick_button">Al pulsar<svg class="slds-button__icon slds-button__icon_x-small slds-button__icon_right" aria-hidden="true">
+							<use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+						</svg>
+					</button>
+					<div class="slds-dropdown slds-dropdown_right" id="drop_down_onclick">
+						<ul class="slds-dropdown__list slds-dropdown_length-with-icon-10" role="menu">
+							<li class="slds-dropdown__item" role="presentation">
+								<a href="javascript:void(0);" class="onclick_option" role="menuitem" tabindex="-1">
+									<span class="slds-truncate" title="Abrir enlace" data-click_action="">No hacer nada</span>
+								</a>
+							</li>
+							<li class="slds-dropdown__item" role="presentation">
+								<a href="javascript:void(0);" class="onclick_option" role="menuitem" tabindex="1">
+									<span class="slds-truncate" title="Abrir enlace" data-click_action="open_url">Abrir enlace</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</li>
+			<li class="slds-tabs_scoped__item" title="Item Three" role="presentation">
+				<a class="slds-tabs_scoped__link" href="javascript:void(0);" data-click_action="" id="menu_text_onclick">No hacer nada</a>
+			</li>
+		</ul>
+		<div class="slds-tabs_scoped__content slds-show" role="tabpanel" id="onclick_tab_index1">
+			<label for="url" class="slds-form-element__label">Enlace</label>
+			<div class="slds-form-element__control">
+				<input type="text" name="url" id="url" class="slds-input" placeholder="https://www.example.com">
+			</div>
+		</div>
+	</div>
+
+
+	<label for="icon_link" class="slds-form-element__label">Enlace del icono</label>
+	<div class="slds-form-element__control">
+		<input type="text" name="icon_link" id="icon_link" class="slds-input" placeholder="https://www.example.com/image.png">
+	</div>
+	<div class="drop_container">
+		<label class="slds-form-element__label">Icono</label>
+		<div id="drop">
+			<img src="" id="image_preview" draggable="false">
+			<font id="image_size">192x192</font>
+			<div role="status" class="slds-spinner slds-spinner_medium" id="loading_image">
+				<span class="slds-assistive-text">Loading</span>
+				<div class="slds-spinner__dot-a"></div>
+				<div class="slds-spinner__dot-b"></div>
+			</div>
+			<span class="slds-icon_container slds-icon-utility-announcement" title="Error" id="error_image" style="text-align: center;position: relative;width: 100%;height: 100%;">
+				<svg class="slds-icon slds-icon-text-default error_icon" aria-hidden="true">
+					<use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#error"></use>
+				</svg>
+				<p style="font-size: 16px;position: absolute;top: 120px;">La imagen no se pudo cargar</p>
+			</span>
+		</div>
+	</div>
+	<input type="file" id="icon"></div>
+	<div id="error_div" class="slds-input slds-input_bare slds-p-around_none"></div>
+</div>
+<div id="popup"></div>
+<div id="custom_prop_doc" style="display: none;">
+	<p><b>HELP</b></p>
+
+	<p>Cualquier información existente en la DataEntry utilizada en el Customer Journey o que pueda relacionarse con ella es susceptible de ser empleada para personalizar el mensaje. Para ello se requiere incorporar la llamada a la función poliformica get bajo la sintaxis que se explica a continuación:</p>
+
+	<p><b>FUNCTION get</b></p>
+	<p>Recupera cualquier campo de texto de cualquier DataExtension que pueda relacionarse con la DataEntry del Customer Journey para configurar un mensaje personalizado</p>
+	
+	<p><b>DESCRIPTION</b></p>
+
+	<p>La función get soporta dos modelos de invocación. Para su invocación, deberá escaparse la llamada de igual manera que si de código AMPScript se tratara, es decir, %%get(param1, param2, …)%%</p>
+
+	<p><b>SYNOPSIS</b></p>
+
+	<p style="">Method 1: <b>get(&ltfield_name&gt)</b>, donde:</p>
+	<p>
+		<ul style="list-style-type: circle;margin-left: 20px;">
+			<li><b>&ltfield_name&gt</b> es el nombre del atributo que se quiere recuperar</li>
+		</ul>
+	</p>
+
+	<p style="">Method 2: <b>get(&ltdata_entry_name&gt, &ltdata_extension_name&gt, &ltfield_name&gt, &ltkey_data_entry&gt, &ltkey_data_extension&gt)</b></p>
+	<p>
+		<ul style="list-style-type: circle; margin-left: 20px;">
+			<li><b>&ltdata_extension_name&gt</b> es el nombre de la DataExtension de la que se quiere recuperar el valor de un campo</li>
+			<li><b>&ltfield_name&gt</b> es el nombre del atributo que se quiere recuperar de la DataExtension referenciada por el parámetro <data_extension_name></li>
+			<li><b>&ltkey_data_extension&gt</b> campo de la DataExtension referenciada por el parámetro &ltdata_extension_name&gt que cruza con la DataEntry por el campo &ltkey_data_entry&gt</li>
+			<li><b>&ltkey_data_entry&gt</b> campo de la DataEntry que se utiliza para cruzar con la DataExtension de la que se quiere recuperar el valor</li>
+		</ul>
+	</p>
+	<p>
+	EXAMPLE
+	</p>
+	<p style="margin-left: 30px;">
+		<b>%%get(‘CUSTOMERS’, ‘name’, ‘phone’, ‘msisdn’)%%</b>, recuperaría el dato registrado en el campo name de la DataExtension CUSTOMERS donde CUSTOMERS.phone = DATA_ENTRY.msisdn
+	</p>
+</div>
+<script type="text/javascript" src="js/index.js"></script>
+</body>
+</html>

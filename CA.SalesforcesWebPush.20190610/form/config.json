@@ -1,0 +1,71 @@
+{
+		"workflowApiVersion": "1.1",
+		"metaData": {
+			"version": "2.1",
+			"icon": "images/icon.png",
+			"category": "message"
+		},
+		"type": "REST",
+		"lang": {
+			 "en-US": {
+					 "name": "WebPush Notification",
+					 "description": "Envio de mensajes WebPush"
+			 }
+		},
+		"arguments": {
+				"execute": {
+						"inArguments": [{
+							"endpoint": "{{Contact.Attribute.webpush_subscriptions.endpoint}}",
+							"p256dh": "{{Contact.Attribute.webpush_subscriptions.p256dh}}",
+							"auth": "{{Contact.Attribute.webpush_subscriptions.auth}}"
+						}],
+						"outArguments": [
+						],
+						"url": "https://webpushnodejstest.herokuapp.com/execute",
+						"useJwt": true,
+						"body": "",
+						"method": "POST"
+				}
+		},
+		"configurationArguments": {
+			"applicationExtensionKey": "486ad3cc-bc11-44d3-89f0-08eb27820948",
+			 "save": {
+					 "url": "https://webpushnodejstest.herokuapp.com/save",
+					 "verb": "POST",
+					 "body": "",
+					 "useJwt": true
+			 },
+			 "publish": {
+					 "url": "https://webpushnodejstest.herokuapp.com/publish",
+					 "verb": "POST",
+					 "body": "",
+					 "useJwt": true
+			 },
+			 "validate": {
+					 "url": "https://webpushnodejstest.herokuapp.com/validate",
+					 "verb": "POST",
+					 "body": "",
+					 "useJwt": true
+			 }
+		},
+		"wizardSteps": [
+			 { "label": "Defina su mensaje", "key": "step1" }
+		],
+		"userInterfaces": {
+			 "configModal": {
+					 "height": 600,
+					 "width": 700,
+					 "fullscreen": false
+			 }
+		},
+		"schema": {
+				"arguments": {
+						"execute": {
+								"inArguments": [
+								],
+								"outArguments": [
+								]
+						}
+				}
+		}
+}
